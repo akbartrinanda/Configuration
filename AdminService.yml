@@ -1,0 +1,61 @@
+server:
+  servlet:
+    context-path: /admin
+  port: 8280
+
+spring:
+  application:
+    name: AdminService
+  datasource:
+    name: db-dev
+    url: jdbc:postgresql://localhost:5432/bpkb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    platform: null
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: true
+        ddl-auto: update
+        temp:
+          use_jdbc_metadata_defaults: false
+        database-platform: org.hibernate.dialect.PostgreSQL9Dialect  
+
+#eureka server url
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    preferIpAddress: true
+    lease-expiration-duration-in-seconds: 1
+    lease-renewal-interval-in-seconds: 2
+
+#oauth2 configuration
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:8180/auth/oauth/check_token
+    client:
+      client-id: mobile
+      client-secret: pin
+
+#log configuration
+logging:
+  file:
+    name: /Users/atn/Documents/programming/me/btu-bpkb/logs/admin.log
+  level:
+    root: WARN
+    '[org.springframework.web]': DEBUG
+    '[org.hibernate]': ERROR
+    '[org.springframework]': INFO
